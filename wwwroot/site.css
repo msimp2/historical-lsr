@@ -18,6 +18,16 @@
     font-family: sans-serif;
 }
 
+/* Add to site.css */
+#colorPickerBtn {
+    border: 1px solid #888;
+    height: 28px;
+    cursor: pointer;
+    color: #222;
+    background: #888888;
+    transition: background 0.2s;
+}
+
 /* --- Lat/Lon Grid Label Overlay Styles --- */
 .latlon-labels {
     pointer-events: none;

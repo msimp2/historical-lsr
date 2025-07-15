@@ -22,8 +22,8 @@
         <div class="latlon-modal-content">
             <span class="latlon-modal-close" id="closeModal">&times;</span>
             <div class="latlon-modal-row">
-                <label for="gridColorInput" style="margin-right: 8px;">Color:</label>
-                <input type="text" id="gridColorInput" value="red" />
+                <button id="colorPickerBtn" type="button" style="width: 60px;">Color</button>
+                <input type="color" id="gridColorInput" value="#888888" style="display:none;" />
             </div>
             <div id="colorError" class="latlon-modal-error"></div>
             <button id="updateGridColorBtn">Update</button>

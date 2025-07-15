@@ -6,10 +6,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-
-// Lat - lon grid information
 let gridVisible = false;
-let gridColor = 'red';
+let gridColor = '#888888';
 
 // Lat/Lon Grid Modal elements
 const latlonGridModal = document.getElementById('colorModal');
@@ -19,12 +17,24 @@ const latlonGridUpdateColorBtn = document.getElementById('updateGridColorBtn');
 const latlonGridColorInput = document.getElementById('gridColorInput');
 const latlonGridColorError = document.getElementById('colorError');
 const latlonGridToggleCheckbox = document.getElementById('toggleGridCheckbox');
+const latlonGridColorPickerBtn = document.getElementById('colorPickerBtn');
 
 // Show the lat/lon grid modal and set input to current color
 latlonGridOptionsBtn.addEventListener('click', () => {
     latlonGridColorInput.value = gridColor;
+    latlonGridColorPickerBtn.style.background = gridColor;
     latlonGridColorError.textContent = '';
     latlonGridModal.style.display = 'block';
+});
+
+// Open color picker when button is clicked
+latlonGridColorPickerBtn.addEventListener('click', () => {
+    latlonGridColorInput.click();
+});
+
+// Update button background when color is picked
+latlonGridColorInput.addEventListener('input', () => {
+    latlonGridColorPickerBtn.style.background = latlonGridColorInput.value;
 });
 
 // Close the lat/lon grid modal
@@ -39,20 +49,9 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Validate color utility for the lat/lon grid
-function isValidColor(strColor) {
-    const s = new Option().style;
-    s.color = strColor;
-    return s.color !== '';
-}
-
-// Update lat/lon grid color and show grid if visible
+// Update grid color and show grid if visible
 latlonGridUpdateColorBtn.addEventListener('click', () => {
-    const color = latlonGridColorInput.value.trim();
-    if (!isValidColor(color)) {
-        latlonGridColorError.textContent = 'Invalid color. Please check your input.';
-        return;
-    }
+    const color = latlonGridColorInput.value;
     gridColor = color;
     if (gridVisible) {
         showGrid(map, gridColor);
