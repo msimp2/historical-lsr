@@ -4,16 +4,32 @@
     <meta charset="utf-8" />
     <title>Leaflet Map Example</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        #map {
-            height: 600px;
-            width: 90%;
-        }
-    </style>
+    <link rel="stylesheet" href="site.css" />
 </head>
 <body>
-    <div id="map"></div>
+    <div class="container">
+        <div id="map"></div>
+        <div id="sidebar">
+            <label style="display: flex; align-items: center; gap: 6px;">
+                <input type="checkbox" id="toggleGridCheckbox" />
+                <span style="font-size: 0.95em;">Show Lat/Lon Grid</span>
+            </label>
+            <button id="showGridBtn">Lat/Lon Grid Options</button>
+        </div>
+    </div>
+    <!-- Lat/Lon Grid Modal Popup -->
+    <div id="colorModal" class="latlon-modal">
+        <div class="latlon-modal-content">
+            <span class="latlon-modal-close" id="closeModal">&times;</span>
+            <div class="latlon-modal-row">
+                <label for="gridColorInput" style="margin-right: 8px;">Color:</label>
+                <input type="text" id="gridColorInput" value="red" />
+            </div>
+            <div id="colorError" class="latlon-modal-error"></div>
+            <button id="updateGridColorBtn">Update</button>
+        </div>
+    </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="leaflet.js"></script>
+    <script type="module" src="leaflet.js"></script>
 </body>
 </html>
