@@ -14,19 +14,12 @@
                 <input type="checkbox" id="toggleGridCheckbox" />
                 <span style="font-size: 0.95em;">Show Lat/Lon Grid</span>
             </label>
-            <button id="showGridBtn">Lat/Lon Grid Options</button>
-        </div>
-    </div>
-    <!-- Lat/Lon Grid Modal Popup -->
-    <div id="colorModal" class="latlon-modal">
-        <div class="latlon-modal-content">
-            <span class="latlon-modal-close" id="closeModal">&times;</span>
-            <div class="latlon-modal-row">
-                <button id="colorPickerBtn" type="button" style="width: 60px;">Color</button>
-                <input type="color" id="gridColorInput" value="#888888" style="display:none;" />
+            <div style="margin-top: 10px;">
+                <input type="color" id="gridColorInput" value="#888888" style="width: 60px; height: 32px;" />
+                <span style="font-size: 0.95em;">Lat/Lon Grid Color</span>
             </div>
             <div id="colorError" class="latlon-modal-error"></div>
-            <button id="updateGridColorBtn">Update</button>
+            <button id="updateGridColorBtn" style="margin-top: 8px;">Update</button>
         </div>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
