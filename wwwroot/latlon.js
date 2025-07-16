@@ -54,7 +54,7 @@ function drawLatLonGrid(map, color = '#888') {
         lines.push(L.polyline([
             [lat, minLng],
             [lat, maxLng]
-        ], { color: color, weight: 1, opacity: 0.5, interactive: false }));
+        ], { color: color, weight: 1, opacity: 1, interactive: false }));
     }
 
     // Draw longitude lines
@@ -62,7 +62,7 @@ function drawLatLonGrid(map, color = '#888') {
         lines.push(L.polyline([
             [minLat, lng],
             [maxLat, lng]
-        ], { color: color, weight: 1, opacity: 0.5, interactive: false }));
+        ], { color: color, weight: 1, opacity: 1, interactive: false }));
     }
 
     // Group all lines into a single layer group
