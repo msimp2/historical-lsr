@@ -1,6 +1,10 @@
 ﻿import { showGrid, hideGrid, getCurrentGridColor } from './latlon.js';
+import { setupBasemapSelector } from './basemap.js';
+import { addStatesLayer, removeStatesLayer } from './states.js';
+
 
 var map = L.map('map').setView([40, -100], 6);
+setupBasemapSelector(map);
 
 const tileLayerUrls = {
     default: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -44,22 +48,12 @@ map.on('moveend', function () {
     }
 });
 
-basemapSelector.addEventListener('change', function () {
-    const mode = basemapSelector.value;
-
-    // Remove the current tile layer
-    if (currentTileLayer) {
-        map.removeLayer(currentTileLayer);
+// States
+const statesCheckbox = document.getElementById('states-checkbox');
+statesCheckbox.addEventListener('change', function () {
+    if (statesCheckbox.checked) {
+        addStatesLayer(map);
+    } else {
+        removeStatesLayer(map);
     }
-    // Add the new tile layer
-    const url = tileLayerUrls[mode] || tileLayerUrls.default;
-    let attribution = '&copy; OpenStreetMap contributors';
-    if (mode === 'dark') {
-        attribution += ' &copy; CARTO';
-    } else if (mode === 'satellite') {
-        attribution = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
-    }
-    currentTileLayer = L.tileLayer(url, {
-        attribution: attribution
-    }).addTo(map);
 });
