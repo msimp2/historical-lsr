@@ -3,6 +3,7 @@ import { setupBasemapSelector } from './basemap.js';
 import { addStatesLayer, removeStatesLayer, updateStatesLayerColor } from './states.js';
 import { addCountiesLayer, removeCountiesLayer, updateCountiesLayerColor, updateCountiesNamesVisibility } from './counties.js';
 import { addNexradLayer, removeNexradLayer } from './nexrad.js';
+import { addTdwrLayer, removeTdwrLayer } from './tdwr.js';
 
 var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
@@ -99,5 +100,15 @@ nexradCheckbox.addEventListener('change', function () {
         addNexradLayer(map);
     } else {
         removeNexradLayer(map);
+    }
+});
+
+// TDWR
+const tdwrCheckbox = document.getElementById('tdwr-checkbox');
+tdwrCheckbox.addEventListener('change', function () {
+    if (tdwrCheckbox.checked) {
+        addTdwrLayer(map);
+    } else {
+        removeTdwrLayer(map);
     }
 });
