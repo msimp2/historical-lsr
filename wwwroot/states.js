@@ -14,7 +14,7 @@ export function addStatesLayer(map, color = '#3388ff') {
             fill: false
         }
     });
-    fetch('GeoJSON/States.json')
+    fetch('Reference/States.json')
         .then(response => response.json())
         .then(data => {
             statesLayer.addData(data);

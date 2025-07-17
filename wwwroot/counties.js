@@ -32,7 +32,7 @@ export function addCountiesLayer(map, color = '#ff8800', showNames = false) {
             fill: false
         }
     });
-    fetch('GeoJSON/Counties.json')
+    fetch('Reference/Counties.json')
         .then(response => response.json())
         .then(data => {
             countiesLayer.addData(data);
