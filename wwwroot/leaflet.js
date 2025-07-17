@@ -4,7 +4,8 @@ var map = L.map('map').setView([40, -100], 6);
 
 const tileLayerUrls = {
     default: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
 };
 
 let currentTileLayer = L.tileLayer(tileLayerUrls.default, {
@@ -15,7 +16,6 @@ let gridVisible = false;
 let gridColor = '#888888';
 
 const basemapSelector = document.getElementById('basemap-selector');
-const latlonGridUpdateColorBtn = document.getElementById('updateGridColorBtn');
 const latlonGridColorInput = document.getElementById('gridColorInput');
 const latlonGridToggleCheckbox = document.getElementById('toggleGridCheckbox');
 
@@ -29,10 +29,9 @@ latlonGridToggleCheckbox.addEventListener('change', function () {
     }
 });
 
-// Update grid color and show grid if visible
-latlonGridUpdateColorBtn.addEventListener('click', () => {
-    const color = latlonGridColorInput.value;
-    gridColor = color;
+// Update grid color and show grid if visible when color input changes
+latlonGridColorInput.addEventListener('input', () => {
+    gridColor = latlonGridColorInput.value;
     if (gridVisible) {
         showGrid(map, gridColor);
     }
@@ -45,7 +44,6 @@ map.on('moveend', function () {
     }
 });
 
-// Basemap selector
 basemapSelector.addEventListener('change', function () {
     const mode = basemapSelector.value;
 
@@ -55,9 +53,13 @@ basemapSelector.addEventListener('change', function () {
     }
     // Add the new tile layer
     const url = tileLayerUrls[mode] || tileLayerUrls.default;
+    let attribution = '&copy; OpenStreetMap contributors';
+    if (mode === 'dark') {
+        attribution += ' &copy; CARTO';
+    } else if (mode === 'satellite') {
+        attribution = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+    }
     currentTileLayer = L.tileLayer(url, {
-        attribution: mode === 'dark'
-            ? '&copy; OpenStreetMap contributors &copy; CARTO'
-            : '&copy; OpenStreetMap contributors'
+        attribution: attribution
     }).addTo(map);
 });
