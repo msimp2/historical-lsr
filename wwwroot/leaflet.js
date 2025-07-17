@@ -2,6 +2,7 @@
 import { setupBasemapSelector } from './basemap.js';
 import { addStatesLayer, removeStatesLayer, updateStatesLayerColor } from './states.js';
 import { addCountiesLayer, removeCountiesLayer, updateCountiesLayerColor, updateCountiesNamesVisibility } from './counties.js';
+import { addNexradLayer, removeNexradLayer } from './nexrad.js';
 
 var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
@@ -88,5 +89,15 @@ countiesColorInput.addEventListener('input', function () {
 countiesNamesCheckbox.addEventListener('change', function () {
     if (countiesCheckbox.checked) {
         updateCountiesNamesVisibility(map, countiesNamesCheckbox.checked);
+    }
+});
+
+// NEXRAD
+const nexradCheckbox = document.getElementById('nexrad-checkbox');
+nexradCheckbox.addEventListener('change', function () {
+    if (nexradCheckbox.checked) {
+        addNexradLayer(map);
+    } else {
+        removeNexradLayer(map);
     }
 });
