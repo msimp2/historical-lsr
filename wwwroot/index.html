@@ -10,13 +10,14 @@
     <div class="container">
         <div id="map"></div>
         <div id="sidebar">
-            <label style="display: flex; align-items: center; gap: 6px;">
-                <input type="checkbox" id="toggleGridCheckbox" />
-                <span style="font-size: 0.95em;">Show Lat/Lon Grid</span>
-            </label>
-            <div style="margin-top: 10px;">
+
+            <!-- Lat Lon Grid -->
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                <label style="display: flex; align-items: center; gap: 6px; margin: 0;">
+                    <input type="checkbox" id="toggleGridCheckbox" />
+                    <span style="font-size: 0.95em;">Lat/Lon Grid</span>
+                </label>
                 <input type="color" id="gridColorInput" value="#888888" style="width: 60px; height: 32px;" />
-                <span style="font-size: 0.95em;">Lat/Lon Grid Color</span>
             </div>
             <div id="colorError" class="latlon-modal-error"></div>
 
