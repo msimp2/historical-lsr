@@ -1,7 +1,7 @@
 ﻿import { showGrid, hideGrid, getCurrentGridColor } from './latlon.js';
 import { setupBasemapSelector } from './basemap.js';
 import { addStatesLayer, removeStatesLayer, updateStatesLayerColor } from './states.js';
-import { addCountiesLayer, removeCountiesLayer, updateCountiesLayerColor } from './counties.js';
+import { addCountiesLayer, removeCountiesLayer, updateCountiesLayerColor, updateCountiesNamesVisibility } from './counties.js';
 
 var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
@@ -69,10 +69,11 @@ statesColorInput.addEventListener('input', function () {
 // Counties
 const countiesCheckbox = document.getElementById('counties-checkbox');
 const countiesColorInput = document.getElementById('countiesColorInput');
+const countiesNamesCheckbox = document.getElementById('counties-names-checkbox');
 
 countiesCheckbox.addEventListener('change', function () {
     if (countiesCheckbox.checked) {
-        addCountiesLayer(map, countiesColorInput.value);
+        addCountiesLayer(map, countiesColorInput.value, countiesNamesCheckbox.checked);
     } else {
         removeCountiesLayer(map);
     }
@@ -81,5 +82,11 @@ countiesCheckbox.addEventListener('change', function () {
 countiesColorInput.addEventListener('input', function () {
     if (countiesCheckbox.checked) {
         updateCountiesLayerColor(map, countiesColorInput.value);
+    }
+});
+
+countiesNamesCheckbox.addEventListener('change', function () {
+    if (countiesCheckbox.checked) {
+        updateCountiesNamesVisibility(map, countiesNamesCheckbox.checked);
     }
 });
