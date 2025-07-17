@@ -1,6 +1,6 @@
 ﻿import { showGrid, hideGrid, getCurrentGridColor } from './latlon.js';
 import { setupBasemapSelector } from './basemap.js';
-import { addStatesLayer, removeStatesLayer } from './states.js';
+import { addStatesLayer, removeStatesLayer, updateStatesLayerColor } from './states.js';
 
 
 var map = L.map('map').setView([40, -100], 6);
@@ -50,10 +50,18 @@ map.on('moveend', function () {
 
 // States
 const statesCheckbox = document.getElementById('states-checkbox');
+const statesColorInput = document.getElementById('statesColorInput');
+
 statesCheckbox.addEventListener('change', function () {
     if (statesCheckbox.checked) {
-        addStatesLayer(map);
+        addStatesLayer(map, statesColorInput.value);
     } else {
         removeStatesLayer(map);
+    }
+});
+
+statesColorInput.addEventListener('input', function () {
+    if (statesCheckbox.checked) {
+        updateStatesLayerColor(map, statesColorInput.value);
     }
 });

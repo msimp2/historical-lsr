@@ -1,10 +1,15 @@
 ﻿let statesLayer = null;
+let lastColor = '#3388ff';
 
-export function addStatesLayer(map) {
-    if (statesLayer) return;
+export function addStatesLayer(map, color = '#3388ff') {
+    lastColor = color;
+    if (statesLayer) {
+        map.removeLayer(statesLayer);
+        statesLayer = null;
+    }
     statesLayer = L.geoJSON(null, {
         style: {
-            color: '#3388ff',
+            color: color,
             weight: 2,
             fill: false
         }
@@ -21,5 +26,11 @@ export function removeStatesLayer(map) {
     if (statesLayer) {
         map.removeLayer(statesLayer);
         statesLayer = null;
+    }
+}
+
+export function updateStatesLayerColor(map, color) {
+    if (statesLayer) {
+        addStatesLayer(map, color);
     }
 }
