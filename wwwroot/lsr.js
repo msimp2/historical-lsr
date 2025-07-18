@@ -75,6 +75,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('datePicker');
     const plotLsrBtn = document.getElementById('plotLsrBtn');
 
+    // LSR toggle button logic
+    const lsrToggleBtn = document.getElementById('lsrToggleBtn');
+    const lsrOptions = document.getElementById('lsrOptions');
+    if (lsrToggleBtn && lsrOptions) {
+        lsrToggleBtn.addEventListener('click', () => {
+            if (lsrOptions.style.display === 'none') {
+                lsrOptions.style.display = 'block';
+            } else {
+                lsrOptions.style.display = 'none';
+            }
+        });
+    }
+
+    const clearLsrBtn = document.getElementById('clearLsrBtn');
+    if (clearLsrBtn) {
+        clearLsrBtn.addEventListener('click', () => {
+            markersLayer.clearLayers();
+        });
+    }
+
     plotLsrBtn.addEventListener('click', async () => {
         const selectedDate = getSelectedDate();
         const selectedHour = getSelectedHour();

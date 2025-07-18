@@ -66,44 +66,44 @@
 
     </div>
 
-    <div class="lsr">
-        <div style="display: flex; flex-direction: row;">
+    <button id="lsrToggleBtn" style="margin-top: 12px;">LSR</button>
 
-            <!-- LSR selector below the map and sidebar row -->
-            <div id="lsr-selector" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
-                <div style="display: flex; gap: 1px;">
-                    <label for="datePicker">Date:</label>
-                    <input type="date" id="datePicker" style="width: 140px;" />
+    <div id="lsrOptions" style="display: none;">
+        <div class="lsr">
+            <div style="display: flex; flex-direction: row;">
+                <!-- LSR selector below the map and sidebar row -->
+                <div id="lsr-selector" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+                    <div style="display: flex; gap: 1px;">
+                        <label for="datePicker">Date:</label>
+                        <input type="date" id="datePicker" style="width: 140px;" />
+                    </div>
+                    <div id="hour-selector" style="display: flex; align-items: center; gap: 0px;"> </div>
+                    <div id="minute-selector" style="display: flex; align-items: center; gap: 0px;"> </div>
                 </div>
-                <div id="hour-selector" style="display: flex; align-items: center; gap: 0px;"> </div>
-                <div id="minute-selector" style="display: flex; align-items: center; gap: 0px;"> </div>
+                <button id="plotLsrBtn">Plot LSR</button>
+                <button id="clearLsrBtn" style="margin-left: 8px;">Clear</button>
             </div>
-            <button id="plotLsrBtn">Plot LSR</button>
-
+            <!-- Looking back -->
+            <div id="lookback-hour-row" style="display: flex; align-items: center; gap: 8px;">
+                <label for="lookbackHourInput">Lookback:</label>
+                <input type="number" id="lookbackHourInput" min="0" value="0" style="width: 60px;" />
+                <span>hours</span>
+                <input type="number" id="lookbackMinuteInput" min="0" value="0" style="width: 60px;" />
+                <span>minutes</span>
+            </div>
+            <!-- Looking forward -->
+            <div id="lookforward-hour-row" style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                <label for="lookforwardHourInput">Lookforward:</label>
+                <input type="number" id="lookforwardHourInput" min="0" value="0" style="width: 60px;" />
+                <span>hours</span>
+                <input type="number" id="lookforwardMinuteInput" min="0" value="0" style="width: 60px;" />
+                <span>minutes</span>
+            </div>
         </div>
-
-        <!-- Looking back -->
-        <div id="lookback-hour-row" style="display: flex; align-items: center; gap: 8px;">
-            <label for="lookbackHourInput">Lookback:</label>
-            <input type="number" id="lookbackHourInput" min="0" value="0" style="width: 60px;" />
-            <span>hours</span>
-            <input type="number" id="lookbackMinuteInput" min="0" value="0" style="width: 60px;" />
-            <span>minutes</span>
-        </div>
-
-        <!-- Looking forward -->
-        <div id="lookforward-hour-row" style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-            <label for="lookforwardHourInput">Lookforward:</label>
-            <input type="number" id="lookforwardHourInput" min="0" value="0" style="width: 60px;" />
-            <span>hours</span>
-            <input type="number" id="lookforwardMinuteInput" min="0" value="0" style="width: 60px;" />
-            <span>minutes</span>
-        </div>
-
     </div>
 
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-        <script type="module" src="leaflet.js"></script>
-        <script type="module" src="lsr.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="module" src="leaflet.js"></script>
+    <script type="module" src="lsr.js"></script>
 </body>
 </html>
