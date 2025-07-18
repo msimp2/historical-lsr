@@ -3,14 +3,17 @@ import { getSelectedMinute } from './Selectors/minuteSelector.js';
 import { getSelectedDate } from './Selectors/dateSelector.js';
 
 // Utility to build the LSR URL
-function buildLSRUrl(date, hour, minute, lookbackHour, lookforwardHour) {
-    // Calculate start time by subtracting lookbackHour
+function buildLSRUrl(date, hour, minute, lookbackHour, lookbackMinute, lookforwardHour, lookforwardMinute) {
+    // Calculate start time by subtracting lookbackHour and lookbackMinute
     const baseDateObj = new Date(`${date}T${hour}:${minute}:00Z`);
     const startDateObj = new Date(baseDateObj);
     startDateObj.setUTCHours(startDateObj.getUTCHours() - lookbackHour);
+    startDateObj.setUTCMinutes(startDateObj.getUTCMinutes() - lookbackMinute);
 
+    // Calculate end time by adding lookforwardHour and lookforwardMinute
     const endDateObj = new Date(baseDateObj);
     endDateObj.setUTCHours(endDateObj.getUTCHours() + lookforwardHour);
+    endDateObj.setUTCMinutes(endDateObj.getUTCMinutes() + lookforwardMinute);
 
     const stsDate = startDateObj.toISOString().slice(0, 10);
     const stsHour = String(startDateObj.getUTCHours()).padStart(2, '0');
@@ -77,16 +80,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedHour = getSelectedHour();
         const selectedMinute = getSelectedMinute();
         const lookbackHourInput = document.getElementById('lookbackHourInput');
+        const lookbackMinuteInput = document.getElementById('lookbackMinuteInput');
         const lookforwardHourInput = document.getElementById('lookforwardHourInput');
+        const lookforwardMinuteInput = document.getElementById('lookforwardMinuteInput');
         const lookbackHour = Math.max(0, parseInt(lookbackHourInput.value, 10) || 0);
+        const lookbackMinute = Math.max(0, parseInt(lookbackMinuteInput.value, 10) || 0);
         const lookforwardHour = Math.max(0, parseInt(lookforwardHourInput.value, 10) || 0);
+        const lookforwardMinute = Math.max(0, parseInt(lookforwardMinuteInput.value, 10) || 0);
 
         if (!selectedDate || !selectedHour || !selectedMinute) {
             alert("Please select date, hour, and minute.");
             return;
         }
 
-        const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute, lookbackHour, lookforwardHour);
+        const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute, lookbackHour, lookbackMinute, lookforwardHour, lookforwardMinute);
         const data = await fetchAndExtractLSRData(url);
         plotLSRData(map, markersLayer, data);
     });

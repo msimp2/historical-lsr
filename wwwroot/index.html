@@ -82,16 +82,22 @@
 
         </div>
 
-        <!-- Looking back hours -->
+        <!-- Looking back -->
         <div id="lookback-hour-row" style="display: flex; align-items: center; gap: 8px;">
-            <label for="lookbackHourInput">Lookback (hours):</label>
+            <label for="lookbackHourInput">Lookback:</label>
             <input type="number" id="lookbackHourInput" min="0" value="0" style="width: 60px;" />
+            <span>hours</span>
+            <input type="number" id="lookbackMinuteInput" min="0" value="0" style="width: 60px;" />
+            <span>minutes</span>
         </div>
 
-        <!-- Looking forward hours -->
+        <!-- Looking forward -->
         <div id="lookforward-hour-row" style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-            <label for="lookforwardHourInput">Lookforward (hours):</label>
+            <label for="lookforwardHourInput">Lookforward:</label>
             <input type="number" id="lookforwardHourInput" min="0" value="0" style="width: 60px;" />
+            <span>hours</span>
+            <input type="number" id="lookforwardMinuteInput" min="0" value="0" style="width: 60px;" />
+            <span>minutes</span>
         </div>
 
     </div>
