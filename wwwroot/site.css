@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    height: 100vh;
+    height: 700px;
 }
 
 #map {
@@ -152,4 +152,12 @@
     pointer-events: none;
     font-weight: bold;
     margin-bottom: 2px;
+}
+
+#lsr-selector {
+    display: flex;
+    flex-direction: row; /* Change to column for vertical stacking */
+    align-items: center;
+    gap: 100px;
+    margin-top: 0;
 }
