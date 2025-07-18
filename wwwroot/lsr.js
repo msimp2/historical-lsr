@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //Non - Tstm Wnd Dmg,Non - Tstm Wnd Gst,Rain,Rip Currents,Seiche,Sleet,Sneaker Wave,Snow,Snow Squall,Snow / Ice Dmg,Storm Surge,Tornado,Tropical Cyclone,Tstm Wnd Dmg
 //Tstm Wnd Gst,Tsunami,Vog,Volcanic Ash,Waterspout,Wildfire,Wind Chill,
 function getMarkerForType(item) {
+    if (item.typetext && item.typetext.toUpperCase() === 'BLIZZARD') return L.marker([item.lat, item.lon], { icon: blizzardIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'DEBRIS FLOW') return L.marker([item.lat, item.lon], { icon: debrisflowIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'DUST STORM') return L.marker([item.lat, item.lon], { icon: duststormIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'EXTREME COLD') return L.marker([item.lat, item.lon], { icon: extremecoldIcon });
@@ -113,12 +114,16 @@ function getMarkerForType(item) {
     if (item.typetext && item.typetext.toUpperCase() === 'FOG') return L.marker([item.lat, item.lon], { icon: fogIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'FUNNEL CLOUD') return L.marker([item.lat, item.lon], { icon: funnelcloudIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'HAIL') return L.marker([item.lat, item.lon], { icon: hailIcon });
+    if (item.typetext && item.typetext.toUpperCase() === 'HIGH SUST WINDS') return L.marker([item.lat, item.lon], { icon: windnotstmIcon });
+    if (item.typetext && item.typetext.toUpperCase() === 'ICE JAM') return L.marker([item.lat, item.lon], { icon: iceIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'LIGHTNING') return L.marker([item.lat, item.lon], { icon: lightningIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'MARINE TSTM WIND') return L.marker([item.lat, item.lon], { icon: marinewindIcon });
+    if (item.typetext && item.typetext.toUpperCase() === 'NON-TSTM WND DMG') return L.marker([item.lat, item.lon], { icon: windnotstmIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'NON-TSTM WND GST') return L.marker([item.lat, item.lon], { icon: windnotstmIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'RAIN') return L.marker([item.lat, item.lon], { icon: rainIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'RIP CURRENTS') return L.marker([item.lat, item.lon], { icon: ripcurrentIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'SNOW') return L.marker([item.lat, item.lon], { icon: snowIcon });
+    if (item.typetext && item.typetext.toUpperCase() === 'SNOW SQUALL') return L.marker([item.lat, item.lon], { icon: snowsquallIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'TORNADO') return L.marker([item.lat, item.lon], { icon: tornadoIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'TSTM WND GST') return L.marker([item.lat, item.lon], { icon: tstmwndgstIcon });
     if (item.typetext && item.typetext.toUpperCase() === 'TSTM WND DMG') return L.marker([item.lat, item.lon], { icon: tstmwnddmgIcon });
@@ -138,6 +143,15 @@ function getMarkerForType(item) {
     }
 }
 
+// Very icons.com for images.
+
+// Custom icon for Blizzard FLOW
+const blizzardIcon = L.icon({
+    iconUrl: 'icons/blizzard.png',
+    iconSize: [20, 20],
+    iconAnchor: [0, 0],
+    popupAnchor: [0, -32]
+});
 
 // Custom icon for DEBRIS FLOW
 const debrisflowIcon = L.icon({
@@ -211,6 +225,14 @@ const hailIcon = L.icon({
     popupAnchor: [0, -32]
 });
 
+// Custom icon for ICE
+const iceIcon = L.icon({
+    iconUrl: 'icons/ice.png',
+    iconSize: [20, 20],
+    iconAnchor: [0, 0],
+    popupAnchor: [0, -32]
+});
+
 // Custom icon for LIGHTNING
 const lightningIcon = L.icon({
     iconUrl: 'icons/lightning.png',
@@ -254,6 +276,14 @@ const ripcurrentIcon = L.icon({
 // Custom icon for SNOW
 const snowIcon = L.icon({
     iconUrl: 'icons/snow.png',
+    iconSize: [20, 20],
+    iconAnchor: [0, 0],
+    popupAnchor: [0, -32]
+});
+
+// Custom icon for SNOW SQUALL
+const snowsquallIcon = L.icon({
+    iconUrl: 'icons/snowsquall.png',
     iconSize: [20, 20],
     iconAnchor: [0, 0],
     popupAnchor: [0, -32]
