@@ -6,6 +6,7 @@ import { addNexradLayer, removeNexradLayer } from './nexrad.js';
 import { addTdwrLayer, removeTdwrLayer } from './tdwr.js';
 import { setupDateSelector } from './Selectors/dateSelector.js';
 import { setupHourSelector } from './Selectors/hourSelector.js';
+import { setupMinuteSelector } from './Selectors/minuteSelector.js';
 
 var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
@@ -118,4 +119,5 @@ tdwrCheckbox.addEventListener('change', function () {
 document.addEventListener('DOMContentLoaded', () => {
     setupDateSelector();
     setupHourSelector();
+    setupMinuteSelector();
 });
