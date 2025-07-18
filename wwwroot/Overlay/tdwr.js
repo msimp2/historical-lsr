@@ -1,20 +1,20 @@
-﻿import { NEXRAD } from './Reference/NEXRAD.js';
+﻿import { TDWR } from '../Reference/TDWR.js';
 
-let nexradLayer = null;
+let tdwrLayer = null;
 
-export function addNexradLayer(map) {
-    if (nexradLayer) {
-        map.removeLayer(nexradLayer);
-        nexradLayer = null;
+export function addTdwrLayer(map) {
+    if (tdwrLayer) {
+        map.removeLayer(tdwrLayer);
+        tdwrLayer = null;
     }
-    nexradLayer = L.layerGroup();
+    tdwrLayer = L.layerGroup();
 
-    NEXRAD.forEach(station => {
+    TDWR.forEach(station => {
         // Circle marker
         const marker = L.circleMarker([station.Latitude, station.Longitude], {
             radius: 6,
-            fillColor: '#0074D9',
-            color: '#0074D9',
+            fillColor: '#00AA00',
+            color: '#00AA00',
             weight: 1,
             opacity: 1,
             fillOpacity: 0.9
@@ -24,27 +24,27 @@ export function addNexradLayer(map) {
             Longitude: ${station.Longitude}<br>
             MSL Height: ${station.MSLHeight}`
         );
-        nexradLayer.addLayer(marker);
+        tdwrLayer.addLayer(marker);
 
-        // Label marker (slightly offset to appear above the circle)
+        // Label marker above the circle
         const label = L.marker([station.Latitude, station.Longitude], {
             icon: L.divIcon({
-                className: 'nexrad-label',
+                className: 'tdwr-label',
                 html: `<span>${station.Name}</span>`,
                 iconSize: [60, 18],
                 iconAnchor: [30, 30] // center bottom
             }),
             interactive: false
         });
-        nexradLayer.addLayer(label);
+        tdwrLayer.addLayer(label);
     });
 
-    nexradLayer.addTo(map);
+    tdwrLayer.addTo(map);
 }
 
-export function removeNexradLayer(map) {
-    if (nexradLayer) {
-        map.removeLayer(nexradLayer);
-        nexradLayer = null;
+export function removeTdwrLayer(map) {
+    if (tdwrLayer) {
+        map.removeLayer(tdwrLayer);
+        tdwrLayer = null;
     }
 }
