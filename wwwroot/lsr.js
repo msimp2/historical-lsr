@@ -3,16 +3,26 @@ import { getSelectedMinute } from './Selectors/minuteSelector.js';
 import { getSelectedDate } from './Selectors/dateSelector.js';
 
 // Utility to build the LSR URL
-function buildLSRUrl(date, hour, minute) {
-    const sts = `${date}T${hour}:${minute}Z`;
-    // Default: 1 hour window
+// Utility to build the LSR URL
+function buildLSRUrl(date, hour, minute, lookbackHour) {
+
+    // Calculate start time by subtracting lookbackHour
     const endDateObj = new Date(`${date}T${hour}:${minute}:00Z`);
-    endDateObj.setUTCHours(endDateObj.getUTCHours() + 1);
+    const startDateObj = new Date(endDateObj);
+    startDateObj.setUTCHours(startDateObj.getUTCHours() - lookbackHour);
+
+    const stsDate = startDateObj.toISOString().slice(0, 10);
+    const stsHour = String(startDateObj.getUTCHours()).padStart(2, '0');
+    const stsMinute = String(startDateObj.getUTCMinutes()).padStart(2, '0');
+    const sts = `${stsDate}T${stsHour}:${stsMinute}Z`;
+
     const endDate = endDateObj.toISOString().slice(0, 10);
     const endHour = String(endDateObj.getUTCHours()).padStart(2, '0');
     const endMinute = String(endDateObj.getUTCMinutes()).padStart(2, '0');
     const ets = `${endDate}T${endHour}:${endMinute}Z`;
+
     const url = `https://mesonet.agron.iastate.edu/geojson/lsr.geojson?west=-130&east=-60&north=50&south=20&sts=${sts}&ets=${ets}`;
+    console.log(url);
     return url;
 }
 
@@ -65,13 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedDate = getSelectedDate();
         const selectedHour = getSelectedHour();
         const selectedMinute = getSelectedMinute();
+        const lookbackHourInput = document.getElementById('lookbackHourInput');
+        const lookbackHour = Math.max(0, parseInt(lookbackHourInput.value, 10) || 1);
 
         if (!selectedDate || !selectedHour || !selectedMinute) {
             alert("Please select date, hour, and minute.");
             return;
         }
 
-        const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute);
+        const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute, lookbackHour);
         const data = await fetchAndExtractLSRData(url);
         plotLSRData(map, markersLayer, data);
     });
