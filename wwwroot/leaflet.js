@@ -4,9 +4,6 @@ import { addStatesLayer, removeStatesLayer, updateStatesLayerColor } from './sta
 import { addCountiesLayer, removeCountiesLayer, updateCountiesLayerColor, updateCountiesNamesVisibility } from './counties.js';
 import { addNexradLayer, removeNexradLayer } from './nexrad.js';
 import { addTdwrLayer, removeTdwrLayer } from './tdwr.js';
-import { setupDateSelector } from './Selectors/dateSelector.js';
-import { setupHourSelector } from './Selectors/hourSelector.js';
-import { setupMinuteSelector } from './Selectors/minuteSelector.js';
 
 var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
