@@ -82,3 +82,18 @@
         });
     });
 }
+export function getSelectedDate() {
+    const yearInput = document.getElementById('yearInput');
+    const monthInput = document.getElementById('monthInput');
+    const dayInput = document.getElementById('dayInput');
+    if (!yearInput || !monthInput || !dayInput) return '';
+
+    const yyyy = yearInput.value.padStart(4, '0');
+    const mm = monthInput.value.padStart(2, '0');
+    const dd = dayInput.value.padStart(2, '0');
+
+    // Basic validation: all fields must be present and valid
+    if (!yyyy || !mm || !dd || isNaN(yyyy) || isNaN(mm) || isNaN(dd)) return '';
+
+    return `${yyyy}-${mm}-${dd}`;
+}

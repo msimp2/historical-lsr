@@ -28,7 +28,7 @@
 }
 
 // Utility to get the selected minute value
-export function getSelectedminute() {
+export function getSelectedMinute() {
     const minuteSelect = document.getElementById('minuteSelect');
     return minuteSelect ? minuteSelect.value : '00';
 }

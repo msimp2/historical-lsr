@@ -10,6 +10,7 @@ import { setupMinuteSelector } from './Selectors/minuteSelector.js';
 
 var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
+window.map = map;
 
 const tileLayerUrls = {
     default: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
