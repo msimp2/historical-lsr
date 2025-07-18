@@ -64,9 +64,13 @@
         <div style="display: flex; flex-direction: row;">
 
             <!-- LSR selector below the map and sidebar row -->
-            <div id="lsr-selector" style="display: flex; gap: 1px; margin-top: 6px;">
-                <button id="datePickerBtn">Select Date</button>
-                <input type="date" id="datePicker" style="position:absolute; left:-9999px;" />
+            <div id="lsr-selector" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+                <div style="display: flex; gap: 1px;">
+                    <button id="datePickerBtn">Select Date</button>
+                    <input type="date" id="datePicker" style="position:absolute; left:-9999px;" />
+                </div>
+                <div id="hour-selector" style="display: flex; align-items: center; gap: 6px;">
+                </div>
             </div>
         </div>
     </div>
