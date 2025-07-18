@@ -3,23 +3,24 @@ import { getSelectedMinute } from './Selectors/minuteSelector.js';
 import { getSelectedDate } from './Selectors/dateSelector.js';
 
 // Utility to build the LSR URL
-// Utility to build the LSR URL
-function buildLSRUrl(date, hour, minute, lookbackHour) {
-
+function buildLSRUrl(date, hour, minute, lookbackHour, lookforwardHour) {
     // Calculate start time by subtracting lookbackHour
-    const endDateObj = new Date(`${date}T${hour}:${minute}:00Z`);
-    const startDateObj = new Date(endDateObj);
+    const baseDateObj = new Date(`${date}T${hour}:${minute}:00Z`);
+    const startDateObj = new Date(baseDateObj);
     startDateObj.setUTCHours(startDateObj.getUTCHours() - lookbackHour);
+
+    const endDateObj = new Date(baseDateObj);
+    endDateObj.setUTCHours(endDateObj.getUTCHours() + lookforwardHour);
 
     const stsDate = startDateObj.toISOString().slice(0, 10);
     const stsHour = String(startDateObj.getUTCHours()).padStart(2, '0');
     const stsMinute = String(startDateObj.getUTCMinutes()).padStart(2, '0');
     const sts = `${stsDate}T${stsHour}:${stsMinute}Z`;
 
-    const endDate = endDateObj.toISOString().slice(0, 10);
-    const endHour = String(endDateObj.getUTCHours()).padStart(2, '0');
-    const endMinute = String(endDateObj.getUTCMinutes()).padStart(2, '0');
-    const ets = `${endDate}T${endHour}:${endMinute}Z`;
+    const etsDate = endDateObj.toISOString().slice(0, 10);
+    const etsHour = String(endDateObj.getUTCHours()).padStart(2, '0');
+    const etsMinute = String(endDateObj.getUTCMinutes()).padStart(2, '0');
+    const ets = `${etsDate}T${etsHour}:${etsMinute}Z`;
 
     const url = `https://mesonet.agron.iastate.edu/geojson/lsr.geojson?west=-130&east=-60&north=50&south=20&sts=${sts}&ets=${ets}`;
     console.log(url);
@@ -76,14 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedHour = getSelectedHour();
         const selectedMinute = getSelectedMinute();
         const lookbackHourInput = document.getElementById('lookbackHourInput');
-        const lookbackHour = Math.max(0, parseInt(lookbackHourInput.value, 10) || 1);
+        const lookforwardHourInput = document.getElementById('lookforwardHourInput');
+        const lookbackHour = Math.max(0, parseInt(lookbackHourInput.value, 10) || 0);
+        const lookforwardHour = Math.max(0, parseInt(lookforwardHourInput.value, 10) || 0);
 
         if (!selectedDate || !selectedHour || !selectedMinute) {
             alert("Please select date, hour, and minute.");
             return;
         }
 
-        const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute, lookbackHour);
+        const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute, lookbackHour, lookforwardHour);
         const data = await fetchAndExtractLSRData(url);
         plotLSRData(map, markersLayer, data);
     });
