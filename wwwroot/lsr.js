@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (clearLsrBtn) {
         clearLsrBtn.addEventListener('click', () => {
             markersLayer.clearLayers();
+            const tbody = document.querySelector('#lsrTypeCountsTable tbody');
+            if (tbody) tbody.innerHTML = '';
         });
     }
 
@@ -116,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = buildLSRUrl(selectedDate, selectedHour, selectedMinute, lookbackHour, lookbackMinute, lookforwardHour, lookforwardMinute);
         const data = await fetchAndExtractLSRData(url);
         plotLSRData(map, markersLayer, data);
+        renderTypeCounts(data);
     });
 });
 
@@ -151,7 +154,6 @@ function getMarkerForType(item) {
     if (item.typetext && item.typetext.toUpperCase() === 'WILDFIRE') return L.marker([item.lat, item.lon], { icon: wildfireIcon });
 
     else {
-        console.log("else");
         // Default: black circle marker
         return L.circleMarker([item.lat, item.lon], {
             radius: 7,
@@ -161,6 +163,28 @@ function getMarkerForType(item) {
             weight: 2
         });
     }
+}
+function renderTypeCounts(data) {
+    const counts = {};
+    data.forEach(item => {
+        if (item.typetext) {
+            const key = item.typetext;
+            counts[key] = (counts[key] || 0) + 1;
+        }
+    });
+
+    const tbody = document.querySelector('#lsrTypeCountsTable tbody');
+    if (!tbody) return;
+
+    // Clear previous rows
+    tbody.innerHTML = '';
+
+    // Add new rows
+    Object.entries(counts).sort((a, b) => b[1] - a[1]).forEach(([type, count]) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${type}</td><td>${count}</td>`;
+        tbody.appendChild(row);
+    });
 }
 
 // Very icons.com for images.
