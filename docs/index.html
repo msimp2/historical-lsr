@@ -66,44 +66,61 @@
 
     </div>
 
-    <div class="lsr">
-        <div style="display: flex; flex-direction: row;">
+    <button id="lsrToggleBtn" style="margin-top: 12px;">LSR</button>
 
-            <!-- LSR selector below the map and sidebar row -->
-            <div id="lsr-selector" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
-                <div style="display: flex; gap: 1px;">
-                    <label for="datePicker">Date:</label>
-                    <input type="date" id="datePicker" style="width: 140px;" />
+    <div id="lsrOptions" style="display: none;">
+        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+            <!-- LSR controls column -->
+            <div class="lsr" style="flex: none;">
+                <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                    <div id="lsr-selector" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px; align-items: flex-start;">
+                        <div style="display: flex; gap: 1px; align-items: flex-start;">
+                            <label for="datePicker">Date:</label>
+                            <input type="date" id="datePicker" style="width: 140px;" />
+                        </div>
+                        <div id="hour-selector" style="display: flex; align-items: flex-start; gap: 0px;"> </div>
+                        <div id="minute-selector" style="display: flex; align-items: flex-start; gap: 0px;"> </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; gap: 8px; margin-top: 8px;">
+                        <button id="plotLsrBtn">Plot LSR</button>
+                        <button id="clearLsrBtn">Clear</button>
+                    </div>
+                    <div id="lookback-hour-row" style="display: flex; align-items: flex-start; gap: 8px;">
+                        <label for="lookbackHourInput">Lookback:</label>
+                        <input type="number" id="lookbackHourInput" min="0" value="0" style="width: 60px;" />
+                        <span>hours</span>
+                        <input type="number" id="lookbackMinuteInput" min="0" value="0" style="width: 60px;" />
+                        <span>minutes</span>
+                    </div>
+                    <div id="lookforward-hour-row" style="display: flex; align-items: flex-start; gap: 8px; margin-top: 4px;">
+                        <label for="lookforwardHourInput">Lookforward:</label>
+                        <input type="number" id="lookforwardHourInput" min="0" value="0" style="width: 60px;" />
+                        <span>hours</span>
+                        <input type="number" id="lookforwardMinuteInput" min="0" value="0" style="width: 60px;" />
+                        <span>minutes</span>
+                    </div>
                 </div>
-                <div id="hour-selector" style="display: flex; align-items: center; gap: 0px;"> </div>
-                <div id="minute-selector" style="display: flex; align-items: center; gap: 0px;"> </div>
             </div>
-            <button id="plotLsrBtn">Plot LSR</button>
-
+            <!-- LSR Type Counts table, just to the right -->
+            <div id="lsrTypeCountsContainer" style="margin-left: 16px; min-width: 250px; margin-top: -45px;">
+                <h4>LSR Type Counts</h4>
+                <table id="lsrTypeCountsTable" border="1" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be injected here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-        <!-- Looking back -->
-        <div id="lookback-hour-row" style="display: flex; align-items: center; gap: 8px;">
-            <label for="lookbackHourInput">Lookback:</label>
-            <input type="number" id="lookbackHourInput" min="0" value="0" style="width: 60px;" />
-            <span>hours</span>
-            <input type="number" id="lookbackMinuteInput" min="0" value="0" style="width: 60px;" />
-            <span>minutes</span>
-        </div>
-
-        <!-- Looking forward -->
-        <div id="lookforward-hour-row" style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-            <label for="lookforwardHourInput">Lookforward:</label>
-            <input type="number" id="lookforwardHourInput" min="0" value="0" style="width: 60px;" />
-            <span>hours</span>
-            <input type="number" id="lookforwardMinuteInput" min="0" value="0" style="width: 60px;" />
-            <span>minutes</span>
-        </div>
-
     </div>
 
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-        <script type="module" src="leaflet.js"></script>
-        <script type="module" src="lsr.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="module" src="leaflet.js"></script>
+    <script type="module" src="lsr.js"></script>
 </body>
 </html>
