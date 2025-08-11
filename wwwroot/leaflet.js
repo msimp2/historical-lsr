@@ -12,6 +12,41 @@ var map = L.map('map').setView([40, -100], 6);
 setupBasemapSelector(map);
 window.map = map;
 
+function pad(n) {
+    return n < 10 ? '0' + n : n;
+}
+function updateClocks() {
+    const now = new Date();
+
+    // Local time (24-hour)
+    const localHours = pad(now.getHours());
+    const localMinutes = pad(now.getMinutes());
+    const localSeconds = pad(now.getSeconds());
+    const localTime = `${localHours}:${localMinutes}:${localSeconds}`;
+    const localClockElem = document.getElementById('local-clock');
+    if (localClockElem) {
+        localClockElem.textContent = `Local: ${localTime}`;
+    }
+
+    // UTC time (24-hour)
+    const utcHours = pad(now.getUTCHours());
+    const utcMinutes = pad(now.getUTCMinutes());
+    const utcSeconds = pad(now.getUTCSeconds());
+    const utcTime = `${utcHours}:${utcMinutes}:${utcSeconds}`;
+    const utcClockElem = document.getElementById('utc-clock');
+    if (utcClockElem) {
+        utcClockElem.textContent = `UTC: ${utcTime}`;
+    }
+}
+
+// Start the clocks when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    updateClocks();
+    setInterval(updateClocks, 1000);
+});
+
+// --- END CLOCKS ---
+
 const tileLayerUrls = {
     default: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
